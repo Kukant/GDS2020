@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,12 +23,12 @@ public class packet : MonoBehaviour
         transform.position = transform.position + new Vector3(0.005f * DefaultSpeed, 0, 0);
 
         if (Input.GetKey(KeyCode.UpArrow)){
-            body.gravityScale = -1;
+            body.gravityScale = Math.Abs(body.gravityScale) * -1;
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            body.gravityScale = 1;
+            body.gravityScale = Math.Abs(body.gravityScale);
         }
     }
 }
