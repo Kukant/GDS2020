@@ -20,7 +20,7 @@ public class PacketMovement : MonoBehaviour
     void FixedUpdate()
     {
         //moves the gameObject forward with given speed
-        transform.position = transform.position + new Vector3(0.005f * DefaultSpeed, 0, 0);
+        transform.position += new Vector3(0.005f * DefaultSpeed, 0, 0);
 
         if (Input.GetKey(KeyCode.UpArrow)){
             body.gravityScale = Math.Abs(body.gravityScale) * -1;
