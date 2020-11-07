@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class packet : MonoBehaviour
+public class PacketMovement : MonoBehaviour
 {
     public float DefaultSpeed = 2.5f;
 
