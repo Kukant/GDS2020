@@ -5,14 +5,20 @@ using UnityEngine;
 
 public class PacketMovement : MonoBehaviour
 {
-    private float DefaultSpeed = 69f;
+    public float DefaultSpeed = 69f;
+    public float speed;
     private Rigidbody2D body;
     private bool pause = false;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+        speed = DefaultSpeed;
         body = transform.GetComponent<Rigidbody2D>();
+        Camera.main.GetComponent<CameraMovement>().setPacketGO(transform);
+    }
+
+    public void SetSpeed(float speed) {
+        this.speed = speed;
     }
 
     // Update is called once per frame
@@ -20,7 +26,7 @@ public class PacketMovement : MonoBehaviour
     void FixedUpdate()
     {
         //moves the gameObject forward with given speed
-        transform.position += new Vector3(0.005f * DefaultSpeed, 0, 0);
+        transform.position += new Vector3(0.005f * speed, 0, 0);
 
         if (!pause) {
             if (Input.GetKey(KeyCode.Space))
@@ -38,8 +44,6 @@ public class PacketMovement : MonoBehaviour
             {
                 body.gravityScale = Math.Abs(body.gravityScale);
             }
-
-            
         }
     }
     

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
@@ -7,12 +8,10 @@ public class GameController : MonoBehaviour {
 
     public GameObject Menu;
 
-    public List<GameObject> levels;
+    public List<GameObject> LevelPrefabs;
+    private GameObject currentLevel;
 
-    public void RunLevel(int lvlIndex) {
-        
-        
-    }
+    private MenuScript menuScript;
 
     // Start is called before the first frame update
     void Start()
@@ -23,15 +22,24 @@ public class GameController : MonoBehaviour {
         } else {
             Menu.SetActive(false);
         }
+
+        menuScript = Menu.GetComponent<MenuScript>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    public void RunLevel(int idx) {
+        currentLevel = Instantiate(LevelPrefabs[idx]);
+        currentLevel.GetComponent<LevelScript>().Setup();
+        currentLevel.GetComponent<LevelScript>().Run();
+        Menu.SetActive(false);
     }
-    
-    private void MenuStart() {
+
+    public void EndLevelSuccess(int remainingLives) {
+        Destroy(currentLevel);
+        MenuStart();
+    }
+
+    public void MenuStart() {
         Menu.SetActive(true);
     }
     

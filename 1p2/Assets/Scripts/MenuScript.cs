@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -39,10 +40,11 @@ public class MenuScript : MonoBehaviour {
     private Image soundsImage;
     private int state = 0;
     private int[] scores;
+    private GameController gc;
     
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+        gc = GameObject.Find("GameController").GetComponent<GameController>();
         TitlePanel.SetActive(true);
         MenuPanel.SetActive(false);
         LevelsPanel.SetActive(false);
@@ -85,13 +87,8 @@ public class MenuScript : MonoBehaviour {
     }
 
     public void PlayLevel(int level) {
-        TitlePanel.SetActive(false);
-        MenuPanel.SetActive(false);
-        LevelsPanel.SetActive(false);
-        FadingPanel.SetActive(false);
-        gameObject.SetActive(false);
-
         state = 3;
+        gc.RunLevel(level - 1);
     }
 
     private Color GetLevelColor(int score, int requiredScore, int levelScore) {

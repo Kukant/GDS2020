@@ -14,15 +14,20 @@ public class CameraMovement : MonoBehaviour {
     void Start () {
         thisCamera = GetComponent<Camera>();
         // do this in Run method that will be called on clicking play
-        playerTransform = GameObject.Find("Packet").transform;
+    }
+
+    public void setPacketGO(Transform transfrom) {
+        playerTransform = transfrom;
     }
 
     // LateUpdate is called after Update each frame
     void FixedUpdate () {
-        var playerPos = playerTransform.position;
-        var idealPosition = new Vector3(playerPos.x + offset, playerPos.y, transform.position.z);
-        var yDistance = idealPosition.y - transform.position.y;
+        if (playerTransform) {
+            var playerPos = playerTransform.position;
+            var idealPosition = new Vector3(playerPos.x + offset, playerPos.y, transform.position.z);
+            var yDistance = idealPosition.y - transform.position.y;
         
-        transform.position = new Vector3(idealPosition.x, transform.position.y + 0.05f * yDistance, idealPosition.z);
+            transform.position = new Vector3(idealPosition.x, transform.position.y + 0.05f * yDistance, idealPosition.z);
+        }
     }
 }

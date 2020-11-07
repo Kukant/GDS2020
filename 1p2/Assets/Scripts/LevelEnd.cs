@@ -21,9 +21,8 @@ public class LevelEnd : MonoBehaviour
         var otherRB = other.GetComponent<Rigidbody2D>();
         if (otherRB) {
             otherRB.gravityScale = 0f;
+            var ls = GetComponentInParent<LevelScript>();
+            ls.EndLevelSuccess();
         }
-
-        var ls = GetComponentInParent<LevelScript>();
-        ls.EndLevelSuccess();
     }
 }

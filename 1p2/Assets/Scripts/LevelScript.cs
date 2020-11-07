@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LevelScript : MonoBehaviour {
 
-    private bool running = true;
     public string msg1, msg2, msg3, msg4;
     private string[] messagesArr;
     
@@ -13,35 +12,24 @@ public class LevelScript : MonoBehaviour {
     private LevelText levelText;
     private GameObject packet;
     private Vector3 packetInitPos;
+    private GameController gc;
+    private PacketMovement pm;
     
     // Start is called before the first frame update
     void Start() {
+        Setup();
+    }
+
+    public void Setup() {
         messagesArr = new[] {msg1, msg2, msg3, msg4};
-        if (GameObject.Find("Level Text Screen")) {
-            levelText = GameObject.Find("Level Text Screen").GetComponentInChildren<LevelText>();
-        }
+        levelText = GameObject.Find("GameScreen").GetComponentInChildren<LevelText>();
         packet = GameObject.Find("Packet");
-        Debug.Log(packet);
         packetInitPos = packet.transform.position;
-        // todo transfer to UI shit
-        Run();
+        pm = packet.GetComponent<PacketMovement>();
+        gc = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (running && Time.timeScale < 1) {
-            Time.timeScale += 0.005f;
-        }
-
-        if (!running && Time.timeScale > 0) {
-            if (Time.timeScale - 0.005f < 0) {
-                Time.timeScale = 0f;
-            } else {
-                Time.timeScale -= 0.005f;
-            }
-        }
-    }
 
     public void Restart() {
         packet.transform.position = packetInitPos;
@@ -63,13 +51,37 @@ public class LevelScript : MonoBehaviour {
     }
 
     public void Run() {
-        running = true;
         lives = 4;
         updateText();
+        StopAllCoroutines();
+        StartCoroutine("SpeedUp");
     }
 
     public void EndLevelSuccess() {
-        running = false;
         // todo show some UI 
+        StopAllCoroutines();
+        StartCoroutine("SlowDown");
+    }
+
+    IEnumerator SpeedUp() {
+        pm.speed = 0;
+        while (pm.speed < pm.DefaultSpeed) {
+            pm.speed += 0.1f;
+            yield return new WaitForSeconds(0.001f);
+        }
+    }
+
+    IEnumerator SlowDown()
+    {
+
+        while (pm.speed > 0) {
+            pm.speed -= 0.4f;
+            if (pm.speed <= 0) {
+                pm.speed = 0f;
+                gc.EndLevelSuccess(lives);
+            }
+
+            yield return new WaitForSeconds(0.001f);
+        }
     }
 }
