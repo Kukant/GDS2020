@@ -9,21 +9,29 @@ public class PacketDamage : MonoBehaviour {
 
     private SpriteRenderer sprite;
 
+    private LevelScript lvlScript;
+
     private Color initialColor;
     // Start is called before the first frame update
     void Start()
     {
         sprite = GetComponentInChildren<SpriteRenderer>();
         initialColor = sprite.color;
+        lvlScript = GetComponentInParent<LevelScript>();
     }
-    
+
+    void Hit() {
+        StopAllCoroutines();
+        StartCoroutine("DamageBlinking");
+        immune = true;
+        lvlScript.PlayerHit();
+    }
+
     private void OnCollisionEnter2D(Collision2D other) {
         if (!immune) {
             var dmg = other.gameObject.GetComponent<Damage>();
             if (dmg != null) {
-                StopAllCoroutines();
-                StartCoroutine("DamageBlinking");
-                immune = true;
+                Hit();
             }
         }
     }

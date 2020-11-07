@@ -9,11 +9,19 @@ public class LevelScript : MonoBehaviour {
     private string[] messagesArr;
     
     private int maxLives = 4;
-    private int lives = 4;
+    private int lives;
+    private LevelText levelText;
+    private GameObject packet;
+    private Vector3 packetInitPos;
     
     // Start is called before the first frame update
     void Start() {
         messagesArr = new[] {msg1, msg2, msg3, msg4};
+        levelText = GameObject.Find("Level Text Screen").GetComponentInChildren<LevelText>();
+        packet = GameObject.Find("Packet");
+        packetInitPos = packet.transform.position;
+        // todo transfer to UI shit
+        Run();
     }
 
     // Update is called once per frame
@@ -32,14 +40,29 @@ public class LevelScript : MonoBehaviour {
         }
     }
 
+    public void Restart() {
+        packet.transform.position = packetInitPos;
+        Run();
+    }
+
     public void PlayerHit() {
-        // set messagesArr[maxLives-lives]
+        lives--;
+        if (lives <= 0) {
+            // TODO restart or go back to menu ??
+            Restart();
+        } else {
+            updateText();
+        }
+    }
+
+    private void updateText() {
+        levelText.ChangeDisplayedText(messagesArr[maxLives-lives]);
     }
 
     public void Run() {
-        // todo set messagesArr[0]
         running = true;
         lives = 4;
+        updateText();
     }
 
     public void EndLevelSuccess() {
