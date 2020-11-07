@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PacketMovement : MonoBehaviour
 {
-    public float DefaultSpeed = 2.5f;
-
+    private float DefaultSpeed = 69f;
     private Rigidbody2D body;
+    private bool pause = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,13 +22,30 @@ public class PacketMovement : MonoBehaviour
         //moves the gameObject forward with given speed
         transform.position += new Vector3(0.005f * DefaultSpeed, 0, 0);
 
-        if (Input.GetKey(KeyCode.UpArrow)){
-            body.gravityScale = Math.Abs(body.gravityScale) * -1;
-        }
+        if (!pause) {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                body.gravityScale = body.gravityScale * -1;
+                pause = true;
+                StopAllCoroutines();
+                StartCoroutine("WaitForPause");
+            }
+            else if (Input.GetKey(KeyCode.UpArrow)){
+                body.gravityScale = Math.Abs(body.gravityScale) * -1;
+            }
 
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            body.gravityScale = Math.Abs(body.gravityScale);
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                body.gravityScale = Math.Abs(body.gravityScale);
+            }
+
+            
         }
+    }
+    
+    IEnumerator WaitForPause()
+    {
+        yield return new WaitForSeconds(0.2f);
+        pause = false;
     }
 }
