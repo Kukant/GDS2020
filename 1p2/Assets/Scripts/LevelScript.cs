@@ -17,8 +17,11 @@ public class LevelScript : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         messagesArr = new[] {msg1, msg2, msg3, msg4};
-        levelText = GameObject.Find("Level Text Screen").GetComponentInChildren<LevelText>();
+        if (GameObject.Find("Level Text Screen")) {
+            levelText = GameObject.Find("Level Text Screen").GetComponentInChildren<LevelText>();
+        }
         packet = GameObject.Find("Packet");
+        Debug.Log(packet);
         packetInitPos = packet.transform.position;
         // todo transfer to UI shit
         Run();
