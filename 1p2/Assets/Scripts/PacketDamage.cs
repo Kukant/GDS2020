@@ -18,7 +18,6 @@ public class PacketDamage : MonoBehaviour {
     }
     
     private void OnCollisionEnter2D(Collision2D other) {
-        Debug.Log("Colission with " + other.gameObject.name);
         if (!immune) {
             var dmg = other.gameObject.GetComponent<Damage>();
             if (dmg != null) {
@@ -33,7 +32,6 @@ public class PacketDamage : MonoBehaviour {
     {
 
         for (var i = 0; i < 8; i++) {
-            Debug.Log("changing color");
             if (i % 2 == 0) {
                 sprite.color = Color.red;
             }
