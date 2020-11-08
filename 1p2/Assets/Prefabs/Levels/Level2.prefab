@@ -174,10 +174,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e690b4f8406dc48cd98b7f927553dbbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  msg1: Damage 0
-  msg2: Damage 1
-  msg3: Damaze 2
-  msg4: Damage 3
+  msg1: '"Vaccines are important and don''t cause autism", explaines well-trusted
+    scientist on today''s podcast.'
+  msg2: Accusations from mothers of autistic children are arising against doctors,
+    who vaccinated them. Yet these so called 'Karens' are not taken seriously.
+  msg3: Vast majority of mothers decides not to vaccinate their children. Death rates
+    of youth are rapidly rising. Numbers of children  with autistic disorder are
+    dropping.
+  msg4: Vaccination before holidays makes you buy more!!!
   lives: 0
 --- !u!1001 &47971202102544557
 PrefabInstance:
