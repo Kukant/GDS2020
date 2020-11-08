@@ -33,13 +33,13 @@ public class SpikeMovement : MonoBehaviour
 
     private void MoveX()
     {
-        float newY;
+        float newX;
         if (up)
         {
-            newY = transform.position.x + 0.005f * Speed;
-            if (newY < UpperBoundary)
+            newX = transform.position.x - 0.005f * Speed;
+            if (newX >= UpperBoundary)
             {
-                transform.position = new Vector3(newY, transform.position.y, transform.position.z);
+                transform.position = new Vector3(newX, transform.position.y, transform.position.z);
             }
             else
             {
@@ -49,10 +49,10 @@ public class SpikeMovement : MonoBehaviour
 
         if (!up)
         {
-            newY = transform.position.x - 0.005f * Speed;
-            if (newY > LowerBoundary)
+            newX = transform.position.x + 0.005f * Speed;
+            if (newX <= LowerBoundary)
             {
-                transform.position = new Vector3(newY, transform.position.y, transform.position.z);
+                transform.position = new Vector3(newX, transform.position.y, transform.position.z);
             }
             else
             {
@@ -67,7 +67,7 @@ public class SpikeMovement : MonoBehaviour
         if (up)
         {
             newY = transform.position.y + 0.005f * Speed;
-            if (newY < UpperBoundary)
+            if (newY <= UpperBoundary)
             {
                 transform.position = new Vector3(transform.position.x, newY, transform.position.z);
             }
@@ -80,7 +80,7 @@ public class SpikeMovement : MonoBehaviour
         if (!up)
         {
             newY = transform.position.y - 0.005f * Speed;
-            if (newY > LowerBoundary)
+            if (newY >= LowerBoundary)
             {
                 transform.position = new Vector3(transform.position.x, newY, transform.position.z);
             }
