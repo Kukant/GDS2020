@@ -30,8 +30,7 @@ public class MenuScript : MonoBehaviour {
     public GameObject Level4;
 
     public float TitleDelaySeconds;
-    public bool Sounds = true;
-        
+
     private Color levelDone = new Color(0, 1, 0.043f);
     private Color levelUnlocked = new Color(1, 1, 1);
     private Color levelLocked = new Color(0.11f, 0.11f, 0.11f);
@@ -155,10 +154,15 @@ public class MenuScript : MonoBehaviour {
     }
 
     public void ToggleSound() {
-        Sounds = !Sounds;
-        soundsImage.sprite = Sounds
-            ? SoundOnIcon
-            : SoundOffIcon;
+        GameController gameController = GetComponentInParent<GameController>();
+        gameController.Sounds = !gameController.Sounds;
+        if (gameController.Sounds) {
+            soundsImage.sprite = SoundOnIcon;
+            gameController.SoundController("menu", true);
+        } else {
+            soundsImage.sprite = SoundOffIcon;
+            gameController.SoundController("menu", false);
+        }
     }
     
     public void ReloadScores() {

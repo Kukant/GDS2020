@@ -27,7 +27,7 @@ public class PacketDamage : MonoBehaviour {
         lvlScript.PlayerHit();
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
+    private void OnCollisionStay2D(Collision2D other) {
         if (!immune) {
             var dmg = other.gameObject.GetComponent<Damage>();
             if (dmg != null) {

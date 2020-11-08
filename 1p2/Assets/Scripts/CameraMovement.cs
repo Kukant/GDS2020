@@ -24,7 +24,7 @@ public class CameraMovement : MonoBehaviour {
     void FixedUpdate () {
         if (playerTransform) {
             var playerPos = playerTransform.position;
-            var idealPosition = new Vector3(playerPos.x + offset, playerPos.y, transform.position.z);
+            var idealPosition = new Vector3(playerPos.x + offset, playerPos.y + 4, transform.position.z);
             var yDistance = idealPosition.y - transform.position.y;
         
             transform.position = new Vector3(idealPosition.x, transform.position.y + 0.05f * yDistance, idealPosition.z);

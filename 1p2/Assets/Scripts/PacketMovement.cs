@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class PacketMovement : MonoBehaviour
 {
-    public float DefaultSpeed = 69f;
     public float speed;
+    public float DefaultSpeed = 2.5f;
+    public GameObject BodySprite;
+    
     private Rigidbody2D body;
     private bool pause = false;
 
@@ -26,10 +28,14 @@ public class PacketMovement : MonoBehaviour
     void FixedUpdate()
     {
         //moves the gameObject forward with given speed
-        transform.position += new Vector3(0.005f * speed, 0, 0);
+        transform.position = transform.position + new Vector3(0.005f * DefaultSpeed, 0, 0);
+        
+        Vector3 prevPosition = BodySprite.transform.position;
+        prevPosition.y += Mathf.Sin(Time.time * 10) * 0.08f;
+        BodySprite.transform.SetPositionAndRotation(prevPosition, BodySprite.transform.rotation);
 
         if (!pause) {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) || (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began))
             {
                 body.gravityScale = body.gravityScale * -1;
                 pause = true;

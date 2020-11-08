@@ -56,10 +56,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e690b4f8406dc48cd98b7f927553dbbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  msg1: neco pravdiveho
-  msg2: neco trochu moc ne
-  msg3: neco trochu vic ne
-  msg4: nejaky sranec
+  msg1: We have researched possible carcinogenic impacts of 5G network and once and
+    for all proven them to be hoax.
+  msg2: We have searched photos of Chariceux cats with 5G and speed of the new network
+    was proven to be awesome.
+  msg3: Observing collected photos of cats from across the network, we noticed disturbing
+    similarities in their facial expressions, beware, they are scheming behind our
+    backs!
+  msg4: The new 5G network causes cancer!!!
+  lives: 0
 --- !u!114 &1485137853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,15 +536,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c2c696ec489ddc40b1120b7f5d00ece, type: 3}
---- !u!4 &8514771488046272058 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2866871410288934544, guid: 6c2c696ec489ddc40b1120b7f5d00ece,
-    type: 3}
-  m_PrefabInstance: {fileID: 5900744472645464234}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8514771488046272057 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2866871410288934547, guid: 6c2c696ec489ddc40b1120b7f5d00ece,
+    type: 3}
+  m_PrefabInstance: {fileID: 5900744472645464234}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8514771488046272058 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2866871410288934544, guid: 6c2c696ec489ddc40b1120b7f5d00ece,
     type: 3}
   m_PrefabInstance: {fileID: 5900744472645464234}
   m_PrefabAsset: {fileID: 0}
