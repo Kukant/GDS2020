@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -72,7 +73,9 @@ public class GameController : MonoBehaviour {
         if (Sounds) {
             SoundController("menu", true);
         }
-        
+
+        double score = 2 * Math.Pow(2, remainingLives);
+        Save((int)score, currentLevelIdx);
         Destroy(currentLevel);
         MenuStart();
     }
@@ -81,7 +84,7 @@ public class GameController : MonoBehaviour {
         Menu.SetActive(true);
     }
     
-    public void Save(int score, int level) {
+    public void Save(int score, int levelIndex) {
         GameSaving data;
         if (File.Exists(Application.persistentDataPath + "/saves.json"))
             data = JsonUtility.FromJson<GameSaving>(File.ReadAllText(Application.persistentDataPath + "/saves.json"));
@@ -89,10 +92,12 @@ public class GameController : MonoBehaviour {
             data = new GameSaving();
             data.scores = new []{ 0, 0, 0, 0 };
         }
-        data.scores[level - 1] = score;
-        string jsonData = JsonUtility.ToJson (data, true);
-        File.WriteAllText (Application.persistentDataPath + "/saves.json", jsonData);
-        // gameObject.GetComponentInChildren<MenuScript>().ReloadScores();
+
+        if (score > data.scores[levelIndex]) {
+            data.scores[levelIndex] = score;
+            string jsonData = JsonUtility.ToJson(data, true);
+            File.WriteAllText(Application.persistentDataPath + "/saves.json", jsonData);
+        }
     }
 }
 
