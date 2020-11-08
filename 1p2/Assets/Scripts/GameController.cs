@@ -99,7 +99,7 @@ public class GameController : MonoBehaviour {
             File.WriteAllText(Application.persistentDataPath + "/saves.json", jsonData);
         }
 
-        Menu.GetComponent<MenuScript>().ReloadScores();
+        Menu.GetComponent<MenuScript>().ReloadScores(Math.Max(score, data.scores[levelIndex]), levelIndex);
     }
 }
 

@@ -106,14 +106,13 @@ MonoBehaviour:
   level2Score: 0
   level2Name: Earth
   Level2: {fileID: 265451639428914639}
-  level3Score: 50
-  level3Name: Level 4?
+  level3Score: 33
+  level3Name: Level 3
   Level3: {fileID: 265451639492636327}
-  level4Score: 100
-  level4Name: Level 4!
+  level4Score: 65
+  level4Name: Level 4
   Level4: {fileID: 265451640102566099}
   TitleDelaySeconds: 2.5
-  Sounds: 1
 --- !u!1 &265451639358180405
 GameObject:
   m_ObjectHideFlags: 0

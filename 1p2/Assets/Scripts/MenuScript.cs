@@ -49,7 +49,7 @@ public class MenuScript : MonoBehaviour {
         LevelsPanel.SetActive(false);
         FadingPanel.SetActive(false);
         
-        ReloadScores();
+        LoadScores();
 
         soundsImage = SoundsButton.GetComponent<Image>();
         soundsImage.sprite = SoundOnIcon;
@@ -100,9 +100,9 @@ public class MenuScript : MonoBehaviour {
         return levelUnlocked;
     }
 
-    private string GetLevelText(string name, int requiredScore, int score) {
+    private string GetLevelText(string name, int requiredScore, int score, int levelScore) {
         return score >= requiredScore
-            ? name + "\n------\n" + ConvertToBinary(score)
+            ? name + "\n------\n" + ConvertToBinary(levelScore)
             : "LOCKED\nx\n" + ConvertToBinary(requiredScore);
     }
 
@@ -115,23 +115,23 @@ public class MenuScript : MonoBehaviour {
         int score = scores.Sum();
         
         Level1.GetComponent<Image>().color = GetLevelColor(score, 0, scores[0]);
-        Level1.GetComponentInChildren<Text>().text = GetLevelText(level1Name, 0, scores[0]);
+        Level1.GetComponentInChildren<Text>().text = GetLevelText(level1Name, 0, score, scores[0]);
         Level1.GetComponent<Button>().onClick.AddListener(() => PlayLevel(1));
         
         Level2.GetComponent<Image>().color = GetLevelColor(score, level2Score, scores[1]);
-        Level2.GetComponentInChildren<Text>().text = GetLevelText(level2Name, level2Score, scores[1]);
+        Level2.GetComponentInChildren<Text>().text = GetLevelText(level2Name, level2Score, score, scores[1]);
         if (score >= level2Score) {
             Level2.GetComponent<Button>().onClick.AddListener(() => PlayLevel(2));
         }
 
         Level3.GetComponent<Image>().color = GetLevelColor(score, level3Score, scores[2]);
-        Level3.GetComponentInChildren<Text>().text = GetLevelText(level3Name, level3Score, scores[2]);
+        Level3.GetComponentInChildren<Text>().text = GetLevelText(level3Name, level3Score, score, scores[2]);
         if (score >= level3Score) {
             Level3.GetComponent<Button>().onClick.AddListener(() => PlayLevel(3));
         }
 
         Level4.gameObject.GetComponent<Image>().color = GetLevelColor(score, level4Score, scores[3]);
-        Level4.GetComponentInChildren<Text>().text = GetLevelText(level4Name, level4Score, scores[3]);
+        Level4.GetComponentInChildren<Text>().text = GetLevelText(level4Name, level4Score, score, scores[3]);
         if (score >= level4Score) {
             Level4.GetComponent<Button>().onClick.AddListener(() => PlayLevel(4));
         }
@@ -165,8 +165,7 @@ public class MenuScript : MonoBehaviour {
         }
     }
     
-    public void ReloadScores() {
-        scores = new[] {8, 0, 0, 0};
+    public void LoadScores() {
         GameSaving data;
         if (File.Exists(Application.persistentDataPath + "/saves.json"))
             data = JsonUtility.FromJson<GameSaving>(File.ReadAllText(Application.persistentDataPath + "/saves.json"));
@@ -175,6 +174,11 @@ public class MenuScript : MonoBehaviour {
             data.scores = new []{ 0, 0, 0, 0 };
         }
         scores = data.scores;
+    }
+    
+    public void ReloadScores(int newScore, int levelIndex) {
+        scores[levelIndex] = newScore;
+        ShowLevelSelect();
     }
 
     private string ConvertToBinary(int number) {
