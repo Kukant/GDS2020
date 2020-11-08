@@ -27,6 +27,15 @@ public class PacketMovement : MonoBehaviour
     //fixed update is needed, so that the movement created by transforming position is not laggy
     void FixedUpdate()
     {
+        body.velocity = new Vector2(0, body.velocity.y);
+        if (body.velocity.y > 30) {
+            body.velocity = new Vector2(body.velocity.x, 30);
+        }
+        
+        if (body.velocity.x > 1) {
+            body.velocity = new Vector2(body.velocity.x, 1);
+        }
+
         //moves the gameObject forward with given speed
         transform.position = transform.position + new Vector3(0.005f * DefaultSpeed, 0, 0);
         
@@ -55,7 +64,7 @@ public class PacketMovement : MonoBehaviour
     
     IEnumerator WaitForPause()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.05f);
         pause = false;
     }
 }

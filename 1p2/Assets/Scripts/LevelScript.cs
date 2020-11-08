@@ -14,7 +14,6 @@ public class LevelScript : MonoBehaviour {
     private Vector3 packetInitPos;
     private GameController gc;
     private PacketMovement pm;
-    private Rigidbody2D prb;
     
     // Start is called before the first frame update
     void Start() {
@@ -28,7 +27,6 @@ public class LevelScript : MonoBehaviour {
         packetInitPos = packet.transform.position;
         pm = packet.GetComponent<PacketMovement>();
         gc = GameObject.Find("GameController").GetComponent<GameController>();
-        prb = packet.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -72,22 +70,19 @@ public class LevelScript : MonoBehaviour {
         var steps = 60f;
         for (var i = 0; i < steps; i++) {
             pm.speed += pm.DefaultSpeed / steps;
-            prb.gravityScale = 14 * i / steps * (prb.gravityScale < 0f ? -1f : 1f);
             yield return new WaitForSeconds(0.05f);
         }
     }
 
     IEnumerator SlowDown()
     {
+        packet.GetComponent<Rigidbody2D>().gravityScale = 0f;
         var steps = 60f;
         for (var i = 0; i < steps; i++) {
             pm.speed -= pm.DefaultSpeed / steps;
-            prb.gravityScale = 14 * (steps - i) / steps * (prb.gravityScale < 0f ? -1f : 1f);
             
             if (i+1 == steps) {
                 pm.speed = 0f;
-                prb.gravityScale = 0.00001f;
-                prb.velocity = Vector2.zero;
                 gc.EndLevelSuccess(lives);
             }
             yield return new WaitForSeconds(0.01f);

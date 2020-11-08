@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour {
 
     public List<GameObject> LevelPrefabs;
     public GameObject currentLevel;
-
+    private int currentLevelIdx;
     public bool Sounds = true;
         
     private MenuScript menuScript;
@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour {
 
     // Update is called once per frame
     public void RunLevel(int idx) {
+        currentLevelIdx = idx;
         SoundController("menu", false);
         if (Sounds) {
             SoundController("type", true);
@@ -58,6 +59,12 @@ public class GameController : MonoBehaviour {
         Intro.GetComponentInChildren<IntroScript>().LevelPrefab = LevelPrefabs[idx];
         Intro.SetActive(true);
         Menu.SetActive(false);
+    }
+
+    public void InstantiateLevel() {
+        currentLevel = Instantiate(LevelPrefabs[currentLevelIdx]);
+        currentLevel.GetComponent<LevelScript>().Setup();
+        currentLevel.GetComponent<LevelScript>().Run();
     }
 
     public void EndLevelSuccess(int remainingLives) {

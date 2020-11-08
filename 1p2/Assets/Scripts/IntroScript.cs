@@ -15,11 +15,6 @@ public class IntroScript : MonoBehaviour {
         gameController = GetComponentInParent<GameController>();
     }
 
-    // Update is called once per frame
-    void Update() {
-        
-    }
-    
     void OnEnable()
     {
         textBox = gameObject.GetComponent<Text>();
@@ -49,9 +44,8 @@ public class IntroScript : MonoBehaviour {
         if (gameController.Sounds) {
             gameController.SoundController("game", true);
         }
-        GameObject currentLevel = Instantiate(LevelPrefab);
-        currentLevel.GetComponent<LevelScript>().Setup();
-        currentLevel.GetComponent<LevelScript>().Run();
+
+        gameController.InstantiateLevel();
         transform.parent.gameObject.SetActive(false);
     }
 
