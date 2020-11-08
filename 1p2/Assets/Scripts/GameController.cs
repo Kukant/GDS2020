@@ -2,42 +2,70 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
     public bool DEBUG = false;
 
     public GameObject Menu;
+    public GameObject Intro;
 
     public List<GameObject> LevelPrefabs;
     public GameObject currentLevel;
 
+    public bool Sounds = true;
+        
     private MenuScript menuScript;
-    private GameObject Intro;
+    private Dictionary<string, AudioSource> soundCollection = new Dictionary<string, AudioSource>();
 
     // Start is called before the first frame update
     void Start()
     {
-        Intro = GameObject.Find("Intro");
-        Intro.SetActive(false);
-        Save(10, 1);
+        soundCollection = InitSounds();
         if (!DEBUG) {
+            SoundController("menu", true);
             MenuStart();
         } else {
+            SoundController("game", true);
             Menu.SetActive(false);
         }
 
         menuScript = Menu.GetComponent<MenuScript>();
     }
+    
+    private Dictionary<string, AudioSource> InitSounds() {
+        var sounds = new Dictionary<string, AudioSource>();
+        sounds.Add("type", GameObject.Find("TypeSound").GetComponent<AudioSource>());
+        sounds.Add("menu", GameObject.Find("MenuMusic").GetComponent<AudioSource>());
+        sounds.Add("game", GameObject.Find("GameMusic").GetComponent<AudioSource>());
+        return sounds;
+    }
+    
+    public void SoundController(string key, bool play) {
+        AudioSource s;
+        if (soundCollection.TryGetValue(key, out s))
+            if (play && (key == "game" || key == "menu" || Sounds)) s.Play();
+            else s.Stop();
+    }
 
     // Update is called once per frame
     public void RunLevel(int idx) {
-        currentLevel = Instantiate(LevelPrefabs[idx]);
-        currentLevel.GetComponent<LevelScript>().Setup();
+        SoundController("menu", false);
+        if (Sounds) {
+            SoundController("type", true);
+        }
+
+        Intro.GetComponentInChildren<IntroScript>().LevelPrefab = LevelPrefabs[idx];
         Intro.SetActive(true);
         Menu.SetActive(false);
     }
 
     public void EndLevelSuccess(int remainingLives) {
+        SoundController("game", false);
+        if (Sounds) {
+            SoundController("menu", true);
+        }
+        
         Destroy(currentLevel);
         MenuStart();
     }
