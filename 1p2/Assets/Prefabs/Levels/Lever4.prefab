@@ -119,10 +119,10 @@ MonoBehaviour:
   msg1: The trails that planes leave behind in higher attitudes are created by air
     condensation.
   msg2: Look at those white lines! Planes leave behind a lot of fuel fumes.
-  msg3: Ever seen those white lines? That is what happens when you go to toilet in
-    an airplane.
+  msg3: Ever seen those white lines? That is what happens when you go to the toilet
+    in an airplane. Imagine beeing the one of the people below.
   msg4: 'Goverment is trying to kill us all by spreading chemicals in those trails
-    behind airplanes. '
+    behind airplanes!! '
   lives: 0
 --- !u!1001 &5172669525390551819
 PrefabInstance:

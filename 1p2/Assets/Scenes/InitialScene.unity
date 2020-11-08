@@ -313,7 +313,7 @@ PrefabInstance:
     - target: {fileID: 265451639323071181, guid: 4c76762b91e63a74cba50bef2f420c61,
         type: 3}
       propertyPath: TitleDelaySeconds
-      value: 0
+      value: 2500
       objectReference: {fileID: 0}
     - target: {fileID: 265451639323071181, guid: 4c76762b91e63a74cba50bef2f420c61,
         type: 3}
@@ -495,6 +495,7 @@ MonoBehaviour:
   - {fileID: 5900744473005815189, guid: 70d604512572b41fd8b9368844e425c6, type: 3}
   - {fileID: 3840112097492566292, guid: c3926e34627154c99b63a11a326ff07d, type: 3}
   - {fileID: 5463375848262685817, guid: 266cd519c128fb545847587ef32ad30c, type: 3}
+  - {fileID: 5172669526560260191, guid: 39270c15ed62b41138a73cd71ff170c6, type: 3}
   currentLevel: {fileID: 5463375848262685817, guid: 266cd519c128fb545847587ef32ad30c,
     type: 3}
   Sounds: 1

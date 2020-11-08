@@ -15082,16 +15082,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e690b4f8406dc48cd98b7f927553dbbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  msg1: Scientists gathered several proofs about Earth's roundness. Between the most
-    popular ones belongs horizon experiment, planet's shadow on the Moon and of course
+  msg1: Scientists gathered solid evidences regarding Earth's roundness. The most
+    popular ones are the horizon experiment, planet's shadow on the Moon and the
     pictures from space.
-  msg2: Hungarian scientist named Peter Grovnik discovered serious problems with
+  msg2: Hungarian scientist named Peter Grovnik discovered serious problem with the
     horizon experiment. But don't panic, there are other proofs that the Earth is
     indeed round.
   msg3: People are indignant over FBI latest released report, showing that any picture
     from space isn't real.
   msg4: Be cautious when traveling. 10 reports of people accidentally tripping and
-    falling over the planet's edge this week.
+    falling over the planet's edge this week!
   lives: 0
 --- !u!1 &5463375848266067069
 GameObject:
