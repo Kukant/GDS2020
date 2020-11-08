@@ -69,13 +69,16 @@ public class GameController : MonoBehaviour {
     }
 
     public void EndLevelSuccess(int remainingLives) {
-        SoundController("game", false);
-        if (Sounds) {
-            SoundController("menu", true);
+        if (remainingLives > 0) {
+            SoundController("game", false);
+            if (Sounds) {
+                SoundController("menu", true);
+            }
+
+            double score = 2 * Math.Pow(2, remainingLives);
+            Save((int) score, currentLevelIdx);
         }
 
-        double score = 2 * Math.Pow(2, remainingLives);
-        Save((int)score, currentLevelIdx);
         Destroy(currentLevel);
         MenuStart();
     }
