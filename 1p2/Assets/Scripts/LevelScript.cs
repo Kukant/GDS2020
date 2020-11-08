@@ -8,16 +8,18 @@ public class LevelScript : MonoBehaviour {
     private string[] messagesArr;
     
     private int maxLives = 4;
-    private int lives;
+    public int lives;
     private LevelText levelText;
     private GameObject packet;
     private Vector3 packetInitPos;
     private GameController gc;
     private PacketMovement pm;
+    private Rigidbody2D prb;
     
     // Start is called before the first frame update
     void Start() {
         Setup();
+        Run();
     }
 
     public void Setup() {
@@ -27,11 +29,13 @@ public class LevelScript : MonoBehaviour {
         packetInitPos = packet.transform.position;
         pm = packet.GetComponent<PacketMovement>();
         gc = GameObject.Find("GameController").GetComponent<GameController>();
+        prb = packet.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
 
     public void Restart() {
+        packet.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         packet.transform.position = packetInitPos;
         Run();
     }
@@ -47,7 +51,8 @@ public class LevelScript : MonoBehaviour {
     }
 
     private void updateText() {
-        levelText.ChangeDisplayedText(messagesArr[maxLives-lives]);
+        if (levelText)
+            levelText.ChangeDisplayedText(messagesArr[maxLives-lives]);
     }
 
     public void Run() {
@@ -65,23 +70,28 @@ public class LevelScript : MonoBehaviour {
 
     IEnumerator SpeedUp() {
         pm.speed = 0;
-        while (pm.speed < pm.DefaultSpeed) {
-            pm.speed += 0.1f;
-            yield return new WaitForSeconds(0.001f);
+        var steps = 60f;
+        for (var i = 0; i < steps; i++) {
+            pm.speed += pm.DefaultSpeed / steps;
+            prb.gravityScale = 14 * i / steps * (prb.gravityScale < 0f ? -1f : 1f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 
     IEnumerator SlowDown()
     {
-
-        while (pm.speed > 0) {
-            pm.speed -= 0.4f;
-            if (pm.speed <= 0) {
+        var steps = 60f;
+        for (var i = 0; i < steps; i++) {
+            pm.speed -= pm.DefaultSpeed / steps;
+            prb.gravityScale = 14 * (steps - i) / steps * (prb.gravityScale < 0f ? -1f : 1f);
+            
+            if (i+1 == steps) {
                 pm.speed = 0f;
+                prb.gravityScale = 0.00001f;
+                prb.velocity = Vector2.zero;
                 gc.EndLevelSuccess(lives);
             }
-
-            yield return new WaitForSeconds(0.001f);
+            yield return new WaitForSeconds(0.01f);
         }
     }
 }

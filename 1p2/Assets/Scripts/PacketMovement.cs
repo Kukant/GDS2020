@@ -35,7 +35,7 @@ public class PacketMovement : MonoBehaviour
         BodySprite.transform.SetPositionAndRotation(prevPosition, BodySprite.transform.rotation);
 
         if (!pause) {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) || (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began))
             {
                 body.gravityScale = body.gravityScale * -1;
                 pause = true;

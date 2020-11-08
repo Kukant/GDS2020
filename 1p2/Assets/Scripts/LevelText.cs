@@ -23,6 +23,7 @@ public class LevelText : MonoBehaviour
 
     public void ChangeDisplayedText(string newText)
     {
-        levelText.text = newText;
+        if (levelText != null)
+            levelText.text = newText;
     }
 }
