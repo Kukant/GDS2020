@@ -1,9 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelScript : MonoBehaviour {
-
     public string msg1, msg2, msg3, msg4;
     private string[] messagesArr;
     
@@ -41,6 +41,7 @@ public class LevelScript : MonoBehaviour {
     }
 
     public void PlayerHit() {
+        Debug.Log("OUT");
         lives--;
         if (lives <= 0) {
             // TODO restart or go back to menu ??
@@ -56,6 +57,7 @@ public class LevelScript : MonoBehaviour {
     }
 
     public void Run() {
+        Debug.Log("RUUNINING");
         lives = 4;
         updateText();
         StopAllCoroutines();

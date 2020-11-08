@@ -31,7 +31,7 @@ public class PacketMovement : MonoBehaviour
         transform.position = transform.position + new Vector3(0.005f * DefaultSpeed, 0, 0);
         
         Vector3 prevPosition = BodySprite.transform.position;
-        prevPosition.y += Mathf.Sin(Time.time * 10) * 0.1f;
+        prevPosition.y += Mathf.Sin(Time.time * 10) * 0.08f;
         BodySprite.transform.SetPositionAndRotation(prevPosition, BodySprite.transform.rotation);
 
         if (!pause) {

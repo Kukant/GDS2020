@@ -9,13 +9,16 @@ public class GameController : MonoBehaviour {
     public GameObject Menu;
 
     public List<GameObject> LevelPrefabs;
-    private GameObject currentLevel;
+    public GameObject currentLevel;
 
     private MenuScript menuScript;
+    private GameObject Intro;
 
     // Start is called before the first frame update
     void Start()
     {
+        Intro = GameObject.Find("Intro");
+        Intro.SetActive(false);
         Save(10, 1);
         if (!DEBUG) {
             MenuStart();
@@ -30,7 +33,7 @@ public class GameController : MonoBehaviour {
     public void RunLevel(int idx) {
         currentLevel = Instantiate(LevelPrefabs[idx]);
         currentLevel.GetComponent<LevelScript>().Setup();
-        currentLevel.GetComponent<LevelScript>().Run();
+        Intro.SetActive(true);
         Menu.SetActive(false);
     }
 
@@ -54,7 +57,7 @@ public class GameController : MonoBehaviour {
         data.scores[level - 1] = score;
         string jsonData = JsonUtility.ToJson (data, true);
         File.WriteAllText (Application.persistentDataPath + "/saves.json", jsonData);
-        gameObject.GetComponentInChildren<MenuScript>().ReloadScores();
+        // gameObject.GetComponentInChildren<MenuScript>().ReloadScores();
     }
 }
 
