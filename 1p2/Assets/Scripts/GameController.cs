@@ -98,6 +98,8 @@ public class GameController : MonoBehaviour {
             string jsonData = JsonUtility.ToJson(data, true);
             File.WriteAllText(Application.persistentDataPath + "/saves.json", jsonData);
         }
+
+        Menu.GetComponent<MenuScript>().ReloadScores();
     }
 }
 
